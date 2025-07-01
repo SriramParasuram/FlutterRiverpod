@@ -8,11 +8,20 @@ plugins {
 android {
     namespace = "com.example.riverpod_flutter_sample"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+//    dependencies {
+//        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+//    }
+
+    dependencies {
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4") // ← UPDATE THIS
     }
 
     kotlinOptions {

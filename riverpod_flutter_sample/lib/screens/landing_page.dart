@@ -120,6 +120,17 @@ class LandingPage extends ConsumerWidget {
         ),
       ),
 
+
+      _LandingTile(
+        title: 'Clean Arch Products',
+        icon: Icons.stream,
+        onTap:
+            () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) =>  ProductListScreen()), // you'll create this
+        ),
+      ),
+
       // Add more tiles here if needed
     ];
 
