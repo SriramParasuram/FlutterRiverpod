@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks_riverpod_app/core/network/api_client.dart';
 import 'package:flutter_hooks_riverpod_app/core/network/network_config.dart';
 import 'package:flutter_hooks_riverpod_app/features/clean_arch_products/domain/entities/product.dart';
-
+import '../../../../core/network/api_result.dart';
 import '../models/product_model.dart';
 
 abstract class ProductRemoteDataSource {
@@ -14,34 +15,41 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   ProductRemoteDataSourceImpl(this.apiClient);
 
-  // @override
-  // Future<List<Product>> getAllProducts() async {
-  //   // TODO: implement getAllProducts
-  //
-  //   final response = await apiClient.get(NetworkConfig.getProducts,
-  //       fromJson: (json) => ProductModel.fromJson(json));
-  //
-  //   // If your ApiClient handles the list mapping:
-  //   // return response.map((e) => e as Product).toList();
-  //
-  //   // If not, and you receive raw list of maps:
-  //   return (response as List)
-  //       .map((json) => ProductModel.fromJson(json))
-  //       .toList();
-  // }
-
   @override
   Future<List<Product>> getAllProducts() async {
-    final response = await apiClient.get(NetworkConfig.getProducts,
-        fromJson: (json) => ProductModel.fromJson(json));
+    print("flow number 3");
+    print(" API called - Should not see this if cached");
 
-    // Assuming response is a List<dynamic>
-    final productList = await compute(parseProducts, response as List);
+    final result = await apiClient.get<String>(
+      NetworkConfig.getProducts,
+      fromJson: (json) => jsonEncode(json), // encode raw json to String for compute
+    );
 
-    return productList;
+    print(" API result: $result");
+
+    if (result is Success<String>) {
+      final products = await compute(parseProductsFromJson, result.data);
+      return products;
+    } else if (result is Failure) {
+      throw Exception('API Error: $result');
+    } else {
+      throw Exception('Unknown API result');
+    }
   }
+}
 
-  List<Product> parseProducts(List<dynamic> jsonList) {
-    return jsonList.map((json) => ProductModel.fromJson(json)).toList();
+/// compute-safe parsing method
+List<Product> parseProductsFromJson(String rawJson) {
+  try {
+    final decoded = jsonDecode(rawJson) as Map<String, dynamic>;
+    final list = decoded['products'] as List<dynamic>;
+
+    return list
+        .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+  } catch (e, st) {
+    print(" Error parsing products in isolate: $e");
+    print(" Stacktrace: $st");
+    return [];
   }
 }

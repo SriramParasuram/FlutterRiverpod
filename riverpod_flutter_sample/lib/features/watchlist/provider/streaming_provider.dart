@@ -2,7 +2,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../models/tick_data.dart';
+
+import '../models/tick_data.dart';
 import '../notifier/watchlist_notifier.dart';
 import '../state/watchlist_state.dart';
 

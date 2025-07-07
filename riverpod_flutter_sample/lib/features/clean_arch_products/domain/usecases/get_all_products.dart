@@ -7,6 +7,7 @@ class GetAllProducts {
 
   GetAllProducts(this.repository);
   Future<List<Product>> call(){
+    print("flow number 1");
     return repository.getAllProducts();
   }
 }

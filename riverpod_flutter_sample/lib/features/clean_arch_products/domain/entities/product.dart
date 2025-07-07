@@ -5,7 +5,7 @@ class Product {
   final double price;
   final int stock;
 
-  Product({
+  const Product({
     required this.id,
     required this.name,
     required this.category,

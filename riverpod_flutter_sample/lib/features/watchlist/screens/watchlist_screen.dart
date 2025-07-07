@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks_riverpod_app/constants/app_constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../models/tick_data.dart';
 import '../provider/streaming_provider.dart';
 
 class WatchlistScreen extends StatelessWidget {

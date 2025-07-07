@@ -13,6 +13,7 @@ class ProductListScreen extends ConsumerStatefulWidget {
 class _ProductListScreenState extends ConsumerState<ProductListScreen> {
   @override
   void initState() {
+    print("init state called ??");
     super.initState();
     Future.microtask(() => ref.read(productProvider.notifier).loadProducts());
   }
@@ -26,23 +27,25 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
           : state.error != null
-          ? Center(child: Text("Error: ${state.error}"))
-          : state.products.isEmpty
-          ? const Center(child: Text("No products available"))
-          : ListView.builder(
-        itemCount: state.products.length,
-        itemBuilder: (context, index) {
-          final Product product = state.products[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: ListTile(
-              title: Text(product.name),
-              subtitle: Text("${product.category} • ₹${product.price.toStringAsFixed(2)}"),
-              trailing: Text("Stock: ${product.stock}"),
-            ),
-          );
-        },
-      ),
+              ? Center(child: Text("Error: ${state.error}"))
+              : state.products.isEmpty
+                  ? const Center(child: Text("No products available"))
+                  : ListView.builder(
+                      itemCount: state.products.length,
+                      itemBuilder: (context, index) {
+                        final Product product = state.products[index];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          child: ListTile(
+                            title: Text(product.name),
+                            subtitle: Text(
+                                "${product.category} • ₹${product.price.toStringAsFixed(2)}"),
+                            trailing: Text("Stock: ${product.stock}"),
+                          ),
+                        );
+                      },
+                    ),
     );
   }
 }

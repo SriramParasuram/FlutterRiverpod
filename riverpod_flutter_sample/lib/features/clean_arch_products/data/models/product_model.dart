@@ -1,12 +1,31 @@
+import 'package:hive/hive.dart';
 import '../../domain/entities/product.dart';
 
+part 'product_model.g.dart';
+
+@HiveType(typeId: 0)
 class ProductModel extends Product {
+  @HiveField(0)
+  final int id;
+
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String category;
+
+  @HiveField(3)
+  final double price;
+
+  @HiveField(4)
+  final int stock;
+
   ProductModel({
-    required int id,
-    required String name,
-    required String category,
-    required double price,
-    required int stock,
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.price,
+    required this.stock,
   }) : super(
     id: id,
     name: name,
