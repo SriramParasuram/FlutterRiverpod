@@ -21,6 +21,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
     print("build method called!");
     print("test log added in main branch");
     print("test log added in checkout test branch");
+    print("new test log added in main branch");
     final productAsyncValue = ref.watch(getAllProductsProvider);
 
     return Scaffold(
