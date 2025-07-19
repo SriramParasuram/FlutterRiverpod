@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks_riverpod_app/features/ipo_screen_bloc/ui/ipo_screen_bloc.dart';
+import 'package:flutter_hooks_riverpod_app/features/isolate_sample/prime_screen.dart';
 import 'package:flutter_hooks_riverpod_app/screens/price_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../features/clean_arch_products/presentation/screens/product_screen.dart';
@@ -82,6 +83,16 @@ class LandingPage extends ConsumerWidget {
             () => Navigator.push(
           context,
           MaterialPageRoute(builder: (_) =>  ProductListScreen()), // you'll create this
+        ),
+      ),
+
+      _LandingTile(
+        title: 'Isolate Sample',
+        icon: Icons.stream,
+        onTap:
+            () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) =>  PrimeScreen()), // you'll create this
         ),
       ),
 
