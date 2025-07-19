@@ -19,6 +19,7 @@ class _ProductListScreenState extends ConsumerState<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     print("build method called!");
+    print("test log added in main branch");
     final productAsyncValue = ref.watch(getAllProductsProvider);
 
     return Scaffold(
